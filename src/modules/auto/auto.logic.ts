@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DataAccessLayer } from '../../common/db/dal';
-import { Car } from './entities/car.entity';
+import { Car } from './entities';
 import { SelectPeriodDto } from './dto';
 import moment from 'moment';
 
@@ -72,7 +72,7 @@ export class AutoLogic {
    */
   async countCost (start: Date, finish: Date): Promise<number> {
     const diffs = moment(finish).diff(start, 'days') + 1;
-    return this.dailyCostForMonth.slice(0, diffs).reduce((acc, i) => (acc + i), 0);
+    return this.dailyCostForMonth.slice(0, diffs).reduce((acc, i) => acc + i, 0);
   }
 
   /**

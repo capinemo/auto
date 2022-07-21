@@ -39,3 +39,16 @@ export const carCreateInPeriod = `
     $3 at time zone 'UTC'
   )
 `;
+
+export const carReportInPeriod = `
+  SELECT * FROM "session" s
+  LEFT JOIN car ON car.id = s.car_id
+    WHERE (
+      s.start_session >= $1::TIMESTAMP
+        AND s.start_session < $2::TIMESTAMP
+    )
+    OR (
+      s.end_session  >= $1::TIMESTAMP
+        AND s.end_session < $2::TIMESTAMP
+    )
+`;

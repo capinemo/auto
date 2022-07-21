@@ -1,5 +1,4 @@
 import {
-  Body,
   Query,
   Controller,
   Get,
@@ -12,7 +11,7 @@ import {
 import { AutoLogic } from './auto.logic';
 import { SelectCarDto, SelectPeriodDto } from './dto';
 import { ApiResponse } from '@nestjs/swagger';
-import { Car } from './entities/car.entity';
+import { Car } from './entities';
 import httpStatus from 'http-status';
 
 /**

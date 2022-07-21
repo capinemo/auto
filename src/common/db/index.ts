@@ -1,7 +1,8 @@
-import { Global, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { DataAccessLayer } from './dal';
 import { ConfigModule } from '@nestjs/config';
 import databaseConfig from '../../config';
+import DataBase from './drivers';
 
 /**
  * Application main module
@@ -13,7 +14,7 @@ import databaseConfig from '../../config';
       load: [databaseConfig]
     })
   ],
-  providers: [DataAccessLayer],
+  providers: [DataAccessLayer, DataBase],
   exports: [DataAccessLayer]
 })
 export default class BaseModule {}

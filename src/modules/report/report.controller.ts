@@ -1,5 +1,9 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ReportLogic } from './report.logic';
+import { ApiResponse } from '@nestjs/swagger';
+import httpStatus from 'http-status';
+import { ReportDto } from './dto';
+import { Report } from './entities';
 
 /**
  * Controller for building reports
@@ -11,7 +15,16 @@ export class RentReportController {
    * Calculates monthly report with all cars
    */
   @Get('month/:year/:month')
-  getMonthReport () {
-    return this.reportLogic.generateMonthReport(2022, 12);
+  @ApiResponse({
+    status: httpStatus.OK,
+    description: 'Месячный отчет сформирован',
+    type: Report
+  })
+  @ApiResponse({
+    status: httpStatus.BAD_REQUEST,
+    description: 'Ошибка валидации'
+  })
+  getMonthReport (@Param() reportDto: ReportDto) {
+    return this.reportLogic.generateMonthReport(reportDto.year, reportDto.month);
   }
 }
